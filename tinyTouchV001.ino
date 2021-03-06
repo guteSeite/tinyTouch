@@ -1,3 +1,4 @@
+// tinyTouch for M5Paper w/o M5EPD library V.001 / Pingi-Soft®2021
 #include"Wire.h"
 #include"SPI.h"
 uint8_t f;uint32_t g;uint16_t h;
