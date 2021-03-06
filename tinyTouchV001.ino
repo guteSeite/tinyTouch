@@ -1,9 +1,8 @@
-// tinyTouch for M5Paper w/o M5EPD library V.001 / Pingi-Soft®2021
 #include"Wire.h"
 #include"SPI.h"
 uint8_t f;uint32_t g;uint16_t h;
 unsigned long z=millis();
-bool o1=1;bool o2=1;
+bool o1=1;bool o2=1;bool o3=1;
 bool xm;bool ym;
 uint8_t fn;uint8_t nm;uint8_t sz;uint8_t id;
 uint16_t ax=0;uint16_t bx=0;
@@ -25,21 +24,21 @@ void setup(){
   SPI.beginTransaction(SPISettings(1e7,MSBFIRST,SPI_MODE0));
   sw(1,1);sw(1,17);sw(0,4);sw(0,1);sw(1,57);sw(0,1);sw(0,2300);sw(1,17);sw(0,522);sw(0,18);sw(1,17);sw(0,520);sw(0,14048);
   cl();sc(0);delay(1e3);
-  while(millis()-z<6e4){
+  while(1){
     po=0;
     while(!po||o1){
+      if(millis()-z>6e4){delay(1e3);digitalWrite(2,0);}
       Wire.beginTransmission(93);Wire.write(129);Wire.write(78);Wire.endTransmission(0);Wire.requestFrom(93,1);fn=Wire.read();
-      nm=fn&15;
+      nm=fn&15;if(nm==2){cl();sc(0);o2=0;o3=0;z=millis();}
       if(fn&128){
-        if(nm!=0){
-          o1=1;po++;o2=1;
+        if(nm&&o3){
+          po++;o1=1;o2=1;
           Wire.beginTransmission(93);Wire.write(129);Wire.write(80);Wire.endTransmission(0);Wire.requestFrom(93,8);Wire.readBytes(bf,8);
           yy[po-1]=540-((bf[1]<<8)|bf[0]);xx[po-1]=((bf[3]<<8)|bf[2]);sz=(bf[5]<<8)|bf[4];id=bf[7];
           if(yy[po-1]==bx&&xx[po-1]==ax)po--;else{bx=yy[po-1];ax=xx[po-1];}
         }
-        else o1=0;
+        else o1=0;o3=1;
         Wire.beginTransmission(93);Wire.write(129);Wire.write(78);Wire.write(0);Wire.endTransmission(1);
-        if(nm==2){cl();sc(0);o2=0;z=millis();}
         }
       }
       if(o2)for(f=0;f<po;f++){
@@ -63,4 +62,4 @@ void setup(){
   }
 }
    
-void loop(){delay(1e3);digitalWrite(2,0);}
+void loop(){}
