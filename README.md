@@ -7,3 +7,4 @@ You only need SPI & Wire
 - PowerOff(~1uA) after 60sec inactivity
 
 more ideas are welcome...
+![tinyTouch](https://user-images.githubusercontent.com/34644251/110212031-b1062c80-7e99-11eb-9d4a-f689b67ec6ee.jpg)
