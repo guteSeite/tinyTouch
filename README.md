@@ -4,7 +4,7 @@ Easy Arduino Script for touch-painting on M5Paper device without M5EPD library !
 You only need SPI & Wire
 
 - variable line thickness
-- screen refreh with two fingers tab
+- screen refresh with two fingers tab
 - PowerOff(~1uA) after 60sec inactivity
 
 more ideas are welcome...
